@@ -4,5 +4,6 @@
   "window_height": 600,
   "icon": "icon.ico",
   "enable_nav": "true",
-  "ua": ""
+  "ua": "",
+  "enable_version_check": "true"
 }
