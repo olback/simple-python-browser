@@ -26,19 +26,20 @@ class bcolors:
 
 
 # Check if this is the latest version.
-with open ("info.json", "r") as local_info:
-    local_proj_info = json.load(local_info)
+if (settings['enable_version_check'] == "true"):
+    with open ("info.json", "r") as local_info:
+        local_proj_info = json.load(local_info)
 
-local_version = str(local_proj_info['version'])
+    local_version = str(local_proj_info['version'])
 
-http = urllib3.PoolManager()
-r = http.request('GET', 'https://raw.githubusercontent.com/olback/simple-python-browser/master/info.json')
-github_proj_info = json.loads(r.data.decode('utf-8'))
+    http = urllib3.PoolManager()
+    r = http.request('GET', 'https://raw.githubusercontent.com/olback/simple-python-browser/master/info.json')
+    github_proj_info = json.loads(r.data.decode('utf-8'))
 
-if (str(github_proj_info['version']) == local_version):
-    print (bcolors.OKGREEN + 'Your browser is up to date! ' + bcolors.ENDC + str(github_proj_info['version']))
-else:
-    print (bcolors.WARNING + '\nBrowser not up to date, please download the latest version from\n'+ github_proj_info['project_link'] + bcolors.FAIL + '\nCurrent version: '+ bcolors.ENDC + local_version + bcolors.OKGREEN + '\nNew version: '+ bcolors.ENDC + str(github_proj_info['version']))
+    if (str(github_proj_info['version']) == local_version):
+        print (bcolors.OKGREEN + 'Your browser is up to date! ' + bcolors.ENDC + str(github_proj_info['version']))
+    else:
+        print (bcolors.WARNING + '\nBrowser not up to date, please download the latest version from\n'+ github_proj_info['project_link'] + bcolors.FAIL + '\nCurrent version: '+ bcolors.ENDC + local_version + bcolors.OKGREEN + '\nNew version: '+ bcolors.ENDC + str(github_proj_info['version']))
 
 
 # Actual browser
